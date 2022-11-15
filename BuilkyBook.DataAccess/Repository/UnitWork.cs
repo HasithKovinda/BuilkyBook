@@ -1,0 +1,49 @@
+﻿using BuilkyBook.DataAccess.Data;
+using BuilkyBook.DataAccess.Repository.IRepository;
+using BuilkyBook.Model;
+using BulkyBook.DataAccess.Repository;
+using BulkyBook.DataAccess.Repository.IRepository;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BuilkyBook.DataAccess.Repository
+{
+    public class UnitWork : IUnitWork
+    {
+        private ApplicationDbContext _db;
+
+        public UnitWork(ApplicationDbContext db)
+        {
+            _db = db;
+            Category = new CategoryRepository(_db);
+            CoverType = new CoverTypeRepository(_db);
+            Product = new ProdctRepository(_db);
+            Company = new CompanyRepository(_db);
+            ShopingCart = new ShopingCartRepository(_db);
+            ApplicationUser = new ApplicationUserRepository(_db);
+            OrderHeader = new OrderHeaderRepository(_db);
+            OrderDetail = new OrderDetailRepository(_db);
+        }
+
+
+
+        public ICategoryRepository Category { get; private set; }
+        public ICoverTypeRepository CoverType { get; private set; }
+        public IProdctRepository Product { get; private set; }
+        public ICompanyRepository Company { get; private set; }
+        public IShopingCartRepository ShopingCart { get; private set; }
+        public IApplicationUserRepository ApplicationUser { get; private set; }
+        public IOrderHeaderRepository OrderHeader { get; private set; }
+        public IOrderDetailRepository OrderDetail { get; private set; }
+
+
+
+        public void Save()
+        {
+            _db.SaveChanges();
+        }
+    }
+}
